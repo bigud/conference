@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>User's list</title>
+</head>
+<div th:if="${list != null}">
+    <h1>User's list</h1>
+    <ul>
+            <li th:each="item : *{list}" th:text="${item}">Item description here...</li>
+    </ul>
+</div>
+<h2>Change role</h2>
+<form th:action="@{/userlist.html}" method="post">
+    <label for="login">Username</label>:
+    <input type="text" id="login" name="login" autofocus="autofocus" /> <br />
+    <input type="submit" value="Change to presenter" />
+</form>
+
+</body>
+</html>
