@@ -12,6 +12,8 @@ public class Schedule implements Serializable {
     private int id;
     @Column(name = "lecture_id")
     private int lecture_id;
+    @Column(name = "room_id")
+    private int room_id;
     @Column(name = "datetime")
     private Date datetime;
 
@@ -29,6 +31,14 @@ public class Schedule implements Serializable {
 
     public void setDatetime(Date datetime) {
         this.datetime = datetime;
+    }
+
+    public int getRoom_id() {
+        return room_id;
+    }
+
+    public void setRoom_id(int room_id) {
+        this.room_id = room_id;
     }
 
     @Override
