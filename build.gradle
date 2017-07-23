@@ -48,7 +48,9 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-thymeleaf')
 	compile("org.springframework.boot:spring-boot-devtools")
 	compile('com.h2database:h2:1.4.191')
-	compile ('org.springframework.security:spring-security-web:4.2.3.RELEASE')
+	compile('org.springframework.security:spring-security-web:4.2.3.RELEASE')
+	// https://mvnrepository.com/artifact/org.thymeleaf.extras/thymeleaf-extras-springsecurity3
+	compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity3', version: '3.0.2.RELEASE'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 

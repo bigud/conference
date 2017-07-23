@@ -1,18 +1,24 @@
 <!DOCTYPE html>
-<!--<html xmlns:th="http://www.thymeleaf.org">-->
-<!--<body>-->
-<!--<head>-->
-    <!--<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>-->
-    <!--<title>User's list</title>-->
-<!--</head>-->
-<!--<div th:if="${list != null}">-->
-    <!--<h1> List of lectures</h1>-->
-    <!--<ul>-->
-        <!--<li th:each="item : *{list}" th:text="${item}">Item description here...</li>-->
-    <!--</ul>-->
-<!--</div>-->
-<!--</body>-->
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-teest
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>User's list</title>
+</head>
+<div sec:authorize="isAuthenticated()">
+    You are logged in as <span sec:authentication="name">Your grace</span>
+</div>
+<div sec:authorize="hasRole('ROLE_ADMIN')">
+    <a href="/userlist.html">User's list</a>>
+</div>
+<div sec:authorize="hasRole('ROLE_PRESENTER')">
+    <a href="/newlecture.html">Schedule new lecture</a>>
+</div>
+<div th:if="${list != null}">
+    <h1> List of lectures</h1>
+    <ul>
+        <li th:each="item : *{list}" th:text="${item}">...</li>
+    </ul>
+</div>
 </body>
 </html>
