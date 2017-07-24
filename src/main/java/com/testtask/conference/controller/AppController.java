@@ -2,6 +2,8 @@ package com.testtask.conference.controller;
 
 import com.testtask.conference.dao.LectureRepository;
 import com.testtask.conference.model.Lecture;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,11 +22,11 @@ public class AppController {
     @Autowired
     LectureRepository lRepository;
 
-    @RequestMapping("/info")
-    public String infoPage(@RequestParam(value = "name", required = false, defaultValue = "test") String name, Model model){
-        model.addAttribute("name", name);
-        return "info";
-    }
+//    @RequestMapping("/info")
+//    public String infoPage(@RequestParam(value = "name", required = false, defaultValue = "test") String name, Model model){
+//        model.addAttribute("name", name);
+//        return "info";
+//    }
     @RequestMapping("/register")
     public String register(@RequestParam(value  = "name", required = true, defaultValue = "listener") String name,
                            @RequestParam(value  = "email", required = true, defaultValue = "") String email,
@@ -63,14 +65,13 @@ public class AppController {
 
         if (logout != null)
             model.addAttribute("message", "You have been logged out successfully.");
-
         return "login";
     }
-    @RequestMapping("/login-error.html")
-    public String loginError(Model model) {
-        model.addAttribute("loginError", true);
-        return "login.html";
-    }
+//    @RequestMapping("/login-error.html")
+//    public String loginError(Model model) {
+//        model.addAttribute("loginError", true);
+//        return "login.html";
+//    }
 
     @RequestMapping("/userlist")
     public String userlist(@RequestParam(value  = "login", required = true, defaultValue = "presenter1") String login, Model model){

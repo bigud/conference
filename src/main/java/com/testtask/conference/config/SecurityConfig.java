@@ -30,10 +30,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .and()
-                .formLogin()
-                //.loginPage("/login.html")
+                .formLogin().loginPage("/login")
+                .usernameParameter("login").passwordParameter("password")
                 .defaultSuccessUrl("/", false)
-                //.failureUrl("/login-error.html")
+                .failureUrl("/login/?error")
                 .and()
                 .logout().clearAuthentication(true).logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
                 .and()

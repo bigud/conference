@@ -8,13 +8,14 @@
 </head>
 <body>
 <h1>Login page</h1>
-<form th:action="@{/login.html}" method="post">
-    <label for="name">Username</label>:
-    <input type="text" class="form-control" id="name" name="name" autofocus="autofocus" /> <br />
+<form th:action="@{/login}" method="post">
+    <label for="login">Username</label>:
+    <input type="text" class="form-control" id="login" name="login" autofocus="autofocus" /> <br />
     <label for="password">Password</label>:
     <input type="password" class="form-control" id="password" name="password" /> <br />
     <input type="submit" class="btn btn-primary" value="Log in" />
 </form>
-<p th:text="${message}"/>
+<p class="bg-info" th:text="${message}"/>
+<p class="bg-danger" th:text="${error}"/>
 </body>
 </html>
