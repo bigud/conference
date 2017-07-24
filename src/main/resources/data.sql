@@ -1,3 +1,10 @@
 INSERT INTO lecture(title, content, Lecturer_id) values ('Life on the Mars','Life on the Mars.',3);
 INSERT INTO lecture(title, content, Lecturer_id) values ('Life on the Venus','Life on the Venus.',3);
 INSERT INTO lecture(title, content, Lecturer_id) values ('Life on the Moon','Life on the Moon.',3);
+INSERT INTO room(name) values ('Yellow room');
+INSERT INTO room(name) values ('Red room');
+INSERT INTO room(name) values ('Blue room');
+INSERT INTO room(name) values ('Green room');
+INSERT INTO Schedule(lecture_id,room_id,datetime) values (1,1,'0');
+INSERT INTO Schedule(lecture_id,room_id,datetime) values (2,2,'0');
+INSERT INTO Schedule(lecture_id,room_id,datetime) values (3,3,'0');
