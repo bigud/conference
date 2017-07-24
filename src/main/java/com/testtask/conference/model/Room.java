@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "scedule")
+@Table(name = "room")
 public class Room implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
