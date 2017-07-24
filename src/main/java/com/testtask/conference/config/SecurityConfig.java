@@ -11,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -29,14 +30,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .and()
-                .formLogin().defaultSuccessUrl("/index", false)
+                .formLogin()
+                //.loginPage("/login.html")
+                .defaultSuccessUrl("/", false)
+                //.failureUrl("/login-error.html")
                 .and()
-                .logout().logoutSuccessUrl("/index")
+                .logout().clearAuthentication(true).logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/")
                 .and()
                 .authorizeRequests()
-                .antMatchers("/index").permitAll()
-                .antMatchers("/userlist").access("hasRole('ADMIN')")
-                .antMatchers("/newlecture").access("hasRole('PRESENTER')");
+                .antMatchers("/index", "/", "/register").permitAll()
+                .antMatchers("/userlist").access("hasRole('ROLE_ADMIN')")
+                .antMatchers("/newlecture").access("hasRole('ROLE_PRESENTER')");
     }
 
     @Autowired

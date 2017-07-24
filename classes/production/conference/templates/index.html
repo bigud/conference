@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <body>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>User's list</title>
 </head>
+
+<!--<div sec:authorize="isAnonymous()">-->
+    <!--<a href="/login.html">Please, log in</a>-->
+<!--</div>-->
+
 <div sec:authorize="isAuthenticated()">
-    You are logged in as <span sec:authentication="name">Your grace</span>
+    You are logged in as <span sec:authentication="name">Your Grace</span>
 </div>
+
 <div sec:authorize="hasRole('ROLE_ADMIN')">
-    <a href="/userlist.html">User's list</a>>
+    <a href="/userlist.html">User's list</a>
+    <a href="/?logout">Log out</a>
 </div>
 <div sec:authorize="hasRole('ROLE_PRESENTER')">
-    <a href="/newlecture.html">Schedule new lecture</a>>
+    <a href="/newlecture.html">Schedule new lecture</a>
 </div>
 <div th:if="${list != null}">
     <h1> List of lectures</h1>

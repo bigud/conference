@@ -66,6 +66,11 @@ public class AppController {
 
         return "login";
     }
+    @RequestMapping("/login-error.html")
+    public String loginError(Model model) {
+        model.addAttribute("loginError", true);
+        return "login.html";
+    }
 
     @RequestMapping("/userlist")
     public String userlist(@RequestParam(value  = "login", required = true, defaultValue = "presenter1") String login, Model model){
