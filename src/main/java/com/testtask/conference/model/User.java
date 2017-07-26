@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -27,7 +28,17 @@ public class User implements Serializable {
     private String password;
     @Column(name = "role")
     private String role;
+    @ManyToMany
+    @JoinColumn(name = "id")
+    private Set<Lecture> lectures;
 
+    public Set<Lecture> getLectures() {
+        return lectures;
+    }
+
+    public void setLectures(Set<Lecture> lectures) {
+        this.lectures = lectures;
+    }
 
     public String getName() {
         return name;
@@ -82,9 +93,9 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+              //  ", name='" + name + '\'' +
                 ", login='" + login + '\'' +
-                ", password='" + password + '\'' +
+              //  ", password='" + password + '\'' +
                 ", role='" + role + '\'' +
                 '}';
     }

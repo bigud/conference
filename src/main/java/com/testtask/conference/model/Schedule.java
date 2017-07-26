@@ -1,50 +1,61 @@
 package com.testtask.conference.model;
 import javax.persistence.*;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
-@Table(name = "scedule")
+@Table(name = "scedule"
+        ,
+        uniqueConstraints= @UniqueConstraint(columnNames={"datetime", "room_id"})
+)
 public class Schedule implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private int id;
-    @Column(name = "lecture_id")
-    private int lecture_id;
-    @Column(name = "room_id")
-    private int room_id;
+    //@Column(name = "lecture_id")
+     @OneToOne
+    @JoinColumn(name = "id")
+    private Lecture lecture;
+    //@Column(name = "room_id")
+    @OneToOne
+    @JoinColumn(name = "room_id")
+    private Room room;
     @Column(name = "datetime")
-    private Date datetime;
+    private String datetime;
 
-    public int getLecture_id() {
-        return lecture_id;
+    public Lecture getLecture() {
+        return lecture;
     }
 
-    public void setLecture_id(int lecture_id) {
-        this.lecture_id = lecture_id;
+    public void setLecture(Lecture lecture) {
+        this.lecture = lecture;
     }
 
-    public Date getDatetime() {
+    public Room getRoom() {
+        return room;
+    }
+
+    public void setRoom(Room room) {
+        this.room = room;
+    }
+
+    public String getDatetime() {
         return datetime;
     }
 
-    public void setDatetime(Date datetime) {
+    public void setDatetime(String datetime) {
         this.datetime = datetime;
     }
 
-    public int getRoom_id() {
-        return room_id;
-    }
-
-    public void setRoom_id(int room_id) {
-        this.room_id = room_id;
-    }
 
     @Override
     public String toString() {
         return "Schedule{" +
-                "lecture_id=" + lecture_id +
+                "lecture=" + lecture +
+                "room=" + room +
                 ", datetime=" + datetime +
                 '}';
     }

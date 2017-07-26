@@ -4,29 +4,41 @@
 <body>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <!-- Bootstrap core CSSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>User's list</title>
 </head>
 
 <!--<div sec:authorize="isAnonymous()">-->
     <!--<a href="/login.html">Please, log in</a>-->
 <!--</div>-->
+<a href="/login">Please, log in</a>
 
 <div sec:authorize="isAuthenticated()">
     You are logged in as <span sec:authentication="name">Your Grace</span>
+    <a href="/logout">Log out</a>
 </div>
 
 <div sec:authorize="hasRole('ROLE_ADMIN')">
     <a href="/userlist.html">User's list</a>
-    <a href="/?logout">Log out</a>
 </div>
 <div sec:authorize="hasRole('ROLE_PRESENTER')">
     <a href="/newlecture.html">Schedule new lecture</a>
 </div>
 <div th:if="${list != null}">
     <h1> List of lectures</h1>
-    <ul>
-        <li th:each="item : *{list}" th:text="${item}">...</li>
+    <ul class="list-group">
+        <li th:each="item : *{list}" th:text="${item}" class="list-group-item">...</li>
     </ul>
 </div>
+<th:block th:each="schedule : ${list}">
+    <tr>
+        <td th:text="${schedule}">Date/Timr</td>
+        <!--<td th:text="${schedule.room_id}">Room</td>-->
+        <!--<td th:text="${schedule.lecture_id}">Lecture</td>-->
+    </tr>
+</th:block>
 </body>
 </html>

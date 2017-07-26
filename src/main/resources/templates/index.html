@@ -10,15 +10,12 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <title>User's list</title>
 </head>
-
-<!--<div sec:authorize="isAnonymous()">-->
-    <!--<a href="/login.html">Please, log in</a>-->
-<!--</div>-->
-<a href="/login">Please, log in</a>
+<div sec:authorize="isAnonymous()">
+    <a href="/login"><b>Please, log in</b></a> or <a href="/register"><b>register</b></a>
+</div>
 
 <div sec:authorize="isAuthenticated()">
-    You are logged in as <span sec:authentication="name">Your Grace</span>
-    <a href="/logout">Log out</a>
+    You are logged in as <b><span sec:authentication="name">Your Grace</span></b>. <a href="/logout">Log out</a>
 </div>
 
 <div sec:authorize="hasRole('ROLE_ADMIN')">
@@ -33,5 +30,12 @@
         <li th:each="item : *{list}" th:text="${item}" class="list-group-item">...</li>
     </ul>
 </div>
+<th:block th:each="schedule : ${list}">
+    <tr>
+        <td th:text="${schedule}">Date/Timr</td>
+        <!--<td th:text="${schedule.room_id}">Room</td>-->
+        <!--<td th:text="${schedule.lecture_id}">Lecture</td>-->
+    </tr>
+</th:block>
 </body>
 </html>

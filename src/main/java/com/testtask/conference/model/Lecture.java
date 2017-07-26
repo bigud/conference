@@ -2,8 +2,11 @@ package com.testtask.conference.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
 
-    @Entity
+@Entity
     @Table(name = "lecture")
     public class Lecture implements Serializable {
         @Id
@@ -14,17 +17,17 @@ import java.io.Serializable;
         private String title;
         @Column(name = "content")
         private String content;
-        @Column(name = "Lecturer_id")
-        private int Lecturer_id;
+        @ManyToMany
+        @JoinColumn(name = "id")
+        private Set<User> users;
 
-        public int getLecturer_id() {
-            return Lecturer_id;
+        public Set<User> getLecturer() {
+            return users;
         }
 
-        public void setLecturer_id(int lecturer_id) {
-            Lecturer_id = lecturer_id;
+        public void setLecturers(Set<User> users) {
+            this.users= users;
         }
-
         public String getContent() {
             return content;
         }
@@ -47,7 +50,7 @@ import java.io.Serializable;
                     "id=" + id +
                     ", title='" + title + '\'' +
                     ", content='" + content + '\'' +
-                    ", Lecturer_id=" + Lecturer_id +
+                    ", Lecturer_id=" + users.toString() +
                     '}';
         }
     }

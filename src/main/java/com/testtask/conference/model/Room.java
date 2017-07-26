@@ -8,8 +8,8 @@ import java.util.Date;
 public class Room implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "room_id")
+    private int room_id;
     @Column(name = "name")
     private String name;
 
@@ -24,7 +24,7 @@ public class Room implements Serializable {
     @Override
     public String toString() {
         return "Room{" +
-                "id=" + id +
+                "id=" + room_id +
                 ", name='" + name + '\'' +
                 '}';
     }

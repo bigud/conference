@@ -40,7 +40,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/index", "/", "/register").permitAll()
                 .antMatchers("/userlist").access("hasRole('ROLE_ADMIN')")
-                .antMatchers("/newlecture").access("hasRole('ROLE_PRESENTER')");
+                .antMatchers("/newlecture").access("hasRole('ROLE_PRESENTER')")
+                .antMatchers("/newlecture.html").access("hasRole('ROLE_PRESENTER')");
     }
 
     @Autowired

@@ -1,7 +1,11 @@
 package com.testtask.conference.controller;
 
 import com.testtask.conference.dao.LectureRepository;
+import com.testtask.conference.dao.RoomRepository;
+import com.testtask.conference.dao.SceduleRepository;
 import com.testtask.conference.model.Lecture;
+import com.testtask.conference.model.Room;
+import com.testtask.conference.model.Schedule;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +18,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.testtask.conference.model.User;
 import com.testtask.conference.dao.ConfRepository;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
+
 @Controller
 public class AppController {
     @Autowired
     ConfRepository confRepository;
-
     @Autowired
     LectureRepository lRepository;
+    @Autowired
+    SceduleRepository sceduleRepository;
+    @Autowired
+    RoomRepository roomRepository;
 
 //    @RequestMapping("/info")
 //    public String infoPage(@RequestParam(value = "name", required = false, defaultValue = "test") String name, Model model){
@@ -44,17 +57,39 @@ public class AppController {
 
     }
     @RequestMapping("/newlecture")
-    public String newlecture(@RequestParam(value  = "content", required = true, defaultValue = "bla-bla-bla") String content,
-                             @RequestParam(value  = "title", required = true, defaultValue = "") String title,  Model model){
-        model.addAttribute("title", title);
+    public String newlecture(
+            @RequestParam(value = "content", required = false, defaultValue = "bla-bla-bla") String content,
+            @RequestParam(value = "title", required = false, defaultValue = "") String title,
+            @RequestParam(value = "datetime", required = false, defaultValue = "") String datetime,
+            @RequestParam(value = "room", required = false, defaultValue = "1") int roomNumber,
+            Model model) {
+        Room room = roomRepository.findOne(roomNumber);
+//        if (room != null) {
+//            model.addAttribute("error", "Wrong room number on this date/time!");
+//        } else {
+//        try {
         Lecture lecture = new Lecture();
         lecture.setContent(content);
         lecture.setTitle(title);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String name = auth.getName();
         User user = confRepository.findByLogin(name);
-        lecture.setLecturer_id(user.getId());
+        Set<User> usrs = lecture.getLecturer();
+        if (usrs == null) {
+            usrs = new HashSet<User>();
+        }
+        usrs.add(user);
+        lecture.setLecturers(usrs);
         lRepository.save(lecture);
+            //
+            Schedule schedule = new Schedule();
+            schedule.setDatetime(datetime);
+            schedule.setRoom(room);
+            sceduleRepository.save(schedule);
+        model.addAttribute("message", "Schedule is updated.");
+//        } catch (Exception exception){
+//            model.addAttribute("error", "This room has been occupied already!");
+//        } }
         return "newlecture";
 
     }
@@ -86,7 +121,7 @@ public class AppController {
     @RequestMapping("/index")
     public String index(Model model){
         //System.out.println(confRepository.findAll().toString());
-        model.addAttribute("list", lRepository.findAll());
+        model.addAttribute("list", sceduleRepository.findAll());
         return "index";
     }
     @RequestMapping("/login-error")
